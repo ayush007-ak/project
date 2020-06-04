@@ -1,29 +1,20 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { Navbar, NavbarBrand } from 'reactstrap';
-import Menu from './components/MenuComponent';
-import {PRODUCTS} from './shared/products';
+import Main from './components/MainComponenet';
+import { BrowserRouter } from 'react-router-dom';
 
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      products: PRODUCTS
-    };
-  }
+ 
 
 render() {
   return (
-    <div>
-        <Navbar dark color="secondary">
-          <div className="container">
-            <NavbarBrand href="/">My Grocery Store.Com</NavbarBrand>
-          </div>
-        </Navbar>
-        <Menu products={this.state.products}/>
+    <BrowserRouter>
+    <div className='App'>
+       
+        <Main/>
     </div>
+    </BrowserRouter>
   );
 }
 }
