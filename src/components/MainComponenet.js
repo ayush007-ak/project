@@ -8,6 +8,11 @@ import Home from './HomeComponent';
 import { Switch, Route, Redirect,withRouter } from 'react-router-dom';
 import Contact from './ContactComponent';
 import Aboutus from './AboutusComponent';
+import {addComment , fetchProducts} from '../redux/ActionCreators';
+import { actions } from 'react-redux-form';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
+
+
 
 
 
@@ -20,6 +25,15 @@ const mapStateToProps = state => {
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+  
+  addComment: (prodId, rating, author, comment) => dispatch(addComment(prodId, rating, author, comment)),
+  fetchProducts: () => { dispatch(fetchProducts())},
+  resetFeedbackForm: () => { dispatch(actions.reset('feedback'))}
+  
+  
+
+});
 
 class Main extends Component {
   constructor(props) {
@@ -27,12 +41,18 @@ class Main extends Component {
    
   }
 
+  componentDidMount() {  
+    this.props.fetchProducts();
+  }
+
   
 
 render() {
   const HomePage = () => {
     return(
-        <Home prod={this.props.products.filter((prod) => prod.featured)[0]}
+        <Home prod={this.props.products.products.filter((prod) => prod.featured)[0]}
+        productsLoading={this.props.products.isLoading}
+        productsErrMess={this.props.products.errMess}
         promotion={this.props.promotions.filter((promo) => promo.featured)[0]}
         stores={this.props.stores.filter((stores) => stores.featured)[0]}
         />
@@ -42,8 +62,11 @@ render() {
 
   const ProdWithId = ({match}) => {
     return(
-        <Productdetail prod={this.props.products.filter((prod) => prod.id === parseInt(match.params.prodId,10))[0]} 
-          comments={this.props.comments.filter((comment) => comment.prodId === parseInt(match.params.prodId,10))} />
+        <Productdetail prod={this.props.products.products.filter((prod) => prod.id === parseInt(match.params.prodId,10))[0]} 
+        isLoading={this.props.products.isLoading}
+        errMess={this.props.products.errMess}
+          comments={this.props.comments.filter((comment) => comment.prodId === parseInt(match.params.prodId,10))} 
+          addComment={this.props.addComment}/>
     );
   };
   
@@ -51,19 +74,24 @@ render() {
   return (
     <div>
       <Header/>
-        <Switch>
+
+      <TransitionGroup>
+      <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
+        <Switch  location={this.props.location}>
               <Route path='/home' component={HomePage} />
               <Route exact path='/menu' component={() => <Menu products={this.props.products} />} />
               <Route path='/menu/:prodId' component={ProdWithId} />
               <Route exact path='/contactus' component={Contact}/>
                <Route exact path="/aboutus" component={() => <Aboutus stores={this.props.stores}></Aboutus>} />
-              
+               <Route exact path='/contactus' component={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
               <Redirect to="/home" />
           </Switch>
+          </CSSTransition>
+          </TransitionGroup>
          <Footer/>
     </div>
   );
 }
 }
 
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));

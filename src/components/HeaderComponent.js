@@ -80,7 +80,7 @@ class Header extends Component {
                <div className="row row-header">
                    <div className="col-12 col-sm-6">
                        <h1>My Grocery store.com</h1>
-                       <p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations will tickle your culinary senses!</p>
+                       <p>We partnership with cities best shops and well maintained staffs, and create a unique information  experience. Our grocery store information creations change your daily need product and food senses!</p>
                    </div>
                </div>
            </div>

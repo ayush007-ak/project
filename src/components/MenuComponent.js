@@ -2,8 +2,10 @@ import React from 'react';
  import {Link} from 'react-router-dom';
 import { Card, CardImg, CardImgOverlay,
   CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+  import { Loading } from './LoadingComponent';
 
    function RenderMenuItem({prod, onClick }){
+
      return(
       <Card >
           <Link to={`/menu/${prod.id}`} >
@@ -21,13 +23,35 @@ import { Card, CardImg, CardImgOverlay,
     
    const Menu = (props) =>{
 
-    const menu = props.products.map((prod) => {
+    const menu = props.products.products.map((prod) => {
       return (
         <div key={prod.id} className="col-12 col-md-5 m-1">
          <RenderMenuItem prod={prod} />
         </div>
       );
   });
+
+  if (props.products.isLoading) {
+    return(
+        <div className="container">
+            <div className="row">            
+                <Loading />
+            </div>
+        </div>
+    );
+}
+else if (props.products.errMess) {
+    return(
+        <div className="container">
+            <div className="row"> 
+                <div className="col-12">
+                    <h4>{props.products.errMess}</h4>
+                </div>
+            </div>
+        </div>
+    );
+}
+else
 
   return (
     <div className="container">

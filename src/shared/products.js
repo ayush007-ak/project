@@ -4,7 +4,7 @@ export const PRODUCTS =
     {
         id: 0,
         name:'Fruits',
-        image: 'assets/images/picture 1 png',
+        image:'/assets/images/picture.png',
         label:'fruits',
         featured: true,
         description:'We have a unique variety of fruits everday.We have all different types of fruits available here.Do come and visit to buy.' ,       
@@ -14,7 +14,7 @@ export const PRODUCTS =
      {
       id: 1,
       name:'Daily needs',
-      image: 'assets/images/coffe.png',
+      image: '/assets/images/coffe.png',
       label:'Snacks',
       featured: false,
       description:'We provides a huge variety of snacks and daily useful groceries from sweet-tangy chips to tamarind sauce and other important items.',        
@@ -23,7 +23,7 @@ export const PRODUCTS =
      {
         id: 2,
          name:'Delivery',
-         image: 'assets/images/delivery.png',
+         image: '/assets/images/delivery.png',
        category: 'delivery services',
       label:'New',
       featured: false,
@@ -32,11 +32,16 @@ export const PRODUCTS =
         {
         id: 3,
         name:'Our Stores',
-        image: 'assets/images/custo.png',
+        image: '/assets/images/custo.png',
         category: 'dessert',
         label:'',
         featured: false,
         description:'Our Stores haves huge variety and quality products avilable.We have connected to different stores around the cities.To fullfill our customer needs.'          
                   }
+
+
+                
+
+                  
                 
 ];
